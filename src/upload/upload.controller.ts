@@ -9,7 +9,8 @@ export class UploadController {
   @Post('pdf')
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: new UploadService().getStorageConfig()
+      storage: new UploadService().getStorageConfig(),
+      fileFilter: (req, file, callback) => new UploadService().fileFilter(req, file, callback),
     }),
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {

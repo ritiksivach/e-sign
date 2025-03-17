@@ -14,6 +14,13 @@ export class UploadService {
     });
   }
 
+  fileFilter(req, file, callback) {
+  if (file.mimetype !== 'application/pdf') {
+    return callback(new BadRequestException('Only PDF files are allowed!'), false);
+  }
+  callback(null, true);
+  }
+
   handleFileUpload(file: Express.Multer.File) {
     if (!file) {
       throw new BadRequestException('No file uploaded!');
